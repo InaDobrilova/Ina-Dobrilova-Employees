@@ -1,25 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import CsvUploader from './components/CsvUploader.jsx';
+import DataGrid from './components/DataGrid.jsx';
+import { useState } from 'react';
+import Container from './components/Container.jsx';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    // Employees grouped by project id
+    const [groupedByProject, setGroupedByProject] = useState({});
+    const hasData = Object.keys(groupedByProject).length !== 0;
+
+    return (
+        <div className="App-body">
+            <Container title="Ranking: check out the employees who've worked together the longest">
+                {hasData && <DataGrid groupedByProject={groupedByProject} />}
+                <CsvUploader controlGroupByProject={setGroupedByProject} />
+            </Container>
+        </div>
+    );
 }
 
 export default App;
